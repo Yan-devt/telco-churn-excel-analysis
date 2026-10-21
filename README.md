@@ -23,6 +23,18 @@ This project is structured as a **production-grade end-to-end analytical solutio
 
 ---
 
+## 🖼️ Executive Dashboard Preview
+
+![Power BI Executive Dashboard](power-bi/screenshots/Dashboard.jpg)
+
+> 📁 **Repository Artifacts & File Navigation:**
+> * 📄 **Raw Source Data:** [`/data/telco_churn_with_all_feedback.csv`](data/telco_churn_with_all_feedback.csv)
+> * 📊 **Excel Workbook & Financial Model:** [`/excel/churn_analysis.xlsx`](excel/churn_analysis.xlsx)
+> * 📈 **Power BI Report & Data Model:** [`/power-bi/churn_dashboard.pbix`](power-bi/churn_dashboard.pbix)
+> * 🎨 **Figma Layout Frame:** [`/power-bi/screenshots/Background_Layout.jpg`](power-bi/screenshots/Background_Layout.jpg)
+
+---
+
 ## 🛠️ Solution Architecture & Methodology
 
 Raw Data (.csv) 
