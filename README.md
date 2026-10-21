@@ -25,13 +25,19 @@ This project is structured as a **production-grade end-to-end analytical solutio
 
 ## 🛠️ Solution Architecture & Methodology
 
-```text
 Raw Data (.csv) 
+
   ➔ Excel Power Query (Data Hygiene & Feature Engineering) 
+  
   ➔ Excel Pivot & Slicer Panel (Behavioral Cohort Hunting)
+  
   ➔ Financial Model (2D Sensitivity & Unit Economics Matrices)
+  
   ➔ Power BI Star Schema Model (Dim/Fact Separation & DAX Engine)
-  ➔ Figma UI Layout Integration ➔ Executive What-If Dashboard
+  
+  ➔ Figma UI Layout Integration 
+  
+  ➔ Executive What-If Dashboard
 
 ---
 
