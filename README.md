@@ -24,14 +24,13 @@ This project is structured as a **production-grade end-to-end analytical solutio
 ---
 
 ## 🖼️ Executive Dashboard Preview
-
-![Power BI Executive Dashboard](power-bi/screenshots/power_bi_executive_dashboard.png)
+![Power BI Executive Dashboard](telco-churn-analytics/power-bi/screenshots/power_bi_executive_dashboard.png)
 
 > 📁 **Repository Artifacts & File Navigation:**
-> * 📄 **Raw Source Data:** [`/data/telco_churn_with_all_feedback.csv`](data/telco_churn_with_all_feedback.csv)
-> * 📊 **Excel Workbook & Financial Model:** [`/excel/churn_analytics.xlsx`](excel/churn_analytics.xlsx)
-> * 📈 **Power BI Report & Data Model:** [`/power-bi/churn_dashboard.pbix`](power-bi/churn_dashboard.pbix)
-> * 🎨 **Figma Layout Frame:** [`/power-bi/screenshots/figma_background_layout.png`](power-bi/screenshots/figma_background_layout.png)
+> * 📄 **Raw Source Data:** [telco-churn-analytics/data/telco_churn_with_all_feedback.csv](telco-churn-analytics/data/telco_churn_with_all_feedback.csv)
+> * 📊 **Excel Workbook & Financial Model:** [telco-churn-analytics/excel/churn_analytics.xlsx](telco-churn-analytics/excel/churn_analytics.xlsx)
+> * 📈 **Power BI Report & Data Model:** [telco-churn-analytics/power-bi/churn_dashboard.pbix](telco-churn-analytics/power-bi/churn_dashboard.pbix)
+> * 🎨 **Figma Layout Frame:** [telco-churn-analytics/power-bi/screenshots/figma_background_layout.png](telco-churn-analytics/power-bi/screenshots/figma_background_layout.png)
 
 ---
 
