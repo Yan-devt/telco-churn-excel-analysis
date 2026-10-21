@@ -1,96 +1,131 @@
-# 📊 SaaS Financial & Churn Analytics Dashboard
+# 📊 SaaS Financial & Churn Analytics Dashboard (End-to-End Case Study)
 
 A comprehensive product and financial case study focused on customer churn analysis, risk zone identification, and scenario-based unit economics modeling for a SaaS business.
 
-This project is structured as an end-to-end analytical product: from raw data hygiene and hidden anomaly detection to translating technical metrics into actionable business decisions (with dollar-value impact and retention cost consideration).
+This project is structured as a **production-grade end-to-end analytical solution**: from raw data hygiene and synthetic feature engineering in Excel (Power Query) to multi-dimensional cohort analysis, financial sensitivity modeling, and building an executive Power BI dashboard with Star Schema modeling, Figma UI container design, and dynamic What-If retention simulations.
 
-**Tools Used:** Excel (Power Query, Pivot Tables, Advanced Data Modeling), Scenario Modeling (Sensitivity Analysis).
+**Tools Used:** 
+* **Power BI Desktop:** Star Schema Data Modeling, Advanced DAX Engine (Custom Card Indicators, Badges, Dynamic Subtexts), Interactive What-If Scenario Parameters.
+* **Excel & Power Query:** Data Cleaning (`null` value handling, type casting), Synthetic Feature Synthesis, Pivot Tables, 2D Sensitivity Matrices (P&L Heatmaps).
+* **Figma:** Executive UI/UX Design, Custom Canvas Background Layout & Container Frames.
 
 ---
 
 ## 🎯 Business Context & Objectives
 
-**Problem:** The company's unit economics are degrading due to a high Churn Rate. The business is losing money on unrecouped user acquisition.
-**Key Constraint:** The retention budget is allocated **exclusively for the most valuable clients** (High-ARPU). For all other segments, the goal is to identify growth areas that do not require direct financial investment.
+* **Problem:** The company's unit economics are degrading due to a high baseline Churn Rate (**26.6%**). The business is experiencing an annual revenue leakage with **$139.1K** lost in Monthly Recurring Revenue (MRR).
+* **Key Constraint:** Retention budget is allocated exclusively for high-value clients (`Is_High_ARPU`). For all other cohorts, the goal is to identify zero-budget product, onboarding, and UX improvements.
 
-**Tested Hypotheses:**
-1. Premium plans (Fiber Optic) trigger churn after promotional periods end.
-2. Churn peaks in the first few months due to a lack of prompt technical support.
-3. Manual monthly payments (Month-to-month) create regular psychological friction, increasing churn.
-
----
-
-## 🛠 Solution Architecture & Methodology
-
-### 1. Data Cleaning & Feature Engineering (Power Query)
-Before building the model, raw data underwent rigorous cleaning (sanity checks, duplicate removal, null-value handling). To enable deep cross-analysis, new features were synthesized:
-* **Tenure_Group:** Grouping continuous monthly tenure into logical cohorts (0-6m, 6-12m, 1-2y, etc.) to analyze the customer lifecycle.
-* **Lost_Monthly_Revenue:** Translating the churn event (Churn = Yes) into actual lost revenue dollars.
-* **Is_High_ARPU:** A binary flag to segment VIP clients based on the primary business constraint (retention budget exclusively for High-ARPU).
-* **Is_Price_Issue:** A marker indicating price as a probable churn driver.
-
-![Power Query Data Hygiene & Feature Engineering](images/power_query.png)
-
-### 2. Exploratory Data Analysis (EDA) & Slicer Hunting
-The company's baseline churn rate was **26.58%**, with a monthly revenue leakage of **$139,131**. 
-Using an interactive slicer panel, I ran manual hypothesis testing. By applying cross-filtration, I hunted for narrow cohorts where churn metrics critically exceeded the baseline.
-
-![Interactive Tabular Dashboard and Slicers](images/eda_dashboard.png)
+### Tested Business Hypotheses:
+1. Premium plans (*Fiber Optic*) trigger severe churn when value perception disconnects from cost without added service layers.
+2. Churn peaks in early lifecycle stages (*0-6m Tenure*) due to setup friction and a lack of prompt technical support during onboarding.
+3. Manual monthly payment methods (*Month-to-month / Electronic check*) create regular psychological friction, driving passive customer loss.
 
 ---
 
-## 🔀 Key Churn Segments & Business Solutions
+## 🛠️ Solution Architecture & Methodology
 
-Cross-analysis revealed 4 "epicenters" of financial loss. Tailored solutions were developed for each segment, adhering strictly to budget constraints.
-
-### 1. High-ARPU Value Failure 💰 *Requires Budget*
-* **Profile:** `Is_High_ARPU: High` + `OnlineSecurity: No`
-* **Problem:** High-ticket clients without additional security add-ons churn at a **53.2%** rate, generating the highest revenue leakage ($64,030 / mo).
-* **Solution:** Assign dedicated Account Managers. Invest the budget into providing the `OnlineSecurity` add-on for free during the first 6 months to create an ecosystem lock-in effect.
-
-### 2. Core Onboarding Failure 🛑 *Zero Budget*
-* **Profile:** `Tenure: 0-6m` + `TechSupport: No` + `Fiber Optic`
-* **Problem:** New clients fail to set up premium internet properly and churn at a **74.9%** rate without support, failing to recoup Customer Acquisition Cost (CAC).
-* **Solution:** Implement trigger-based onboarding email chains. If a user is inactive by day 3, initiate an automated push-call or SMS with video instructions.
-
-### 3. Payment Friction Trap 💳 *Zero Budget*
-* **Profile:** `Tenure: 0-6m` + `PaymentMethod: Electronic check`
-* **Problem:** Manual payment methods create recurring friction—clients simply abandon the service (churn rate: **73.0%**).
-* **Solution:** Aggressively transition users to automated payments (Credit Card). Introduce gamification (Opt-out instead of Opt-in during registration): "Link a card today and get a free speed upgrade."
-
-### 4. Senior Citizen Tech Gap 👵 *Zero Budget*
-* **Profile:** `SeniorCitizen: 1` + `TechSupport: No` + `Fiber Optic`
-* **Problem:** Churn sits at **53.6%**. Elderly clients struggle with complex equipment setup independently.
-* **Solution:** Implement a smart call routing algorithm: instantly connect Senior clients to a dedicated "patient" support line, bypassing the standard IVR menu.
+```text
+Raw Data (.csv) 
+  ➔ Excel Power Query (Data Hygiene & Feature Engineering) 
+  ➔ Excel Pivot & Slicer Panel (Behavioral Cohort Hunting)
+  ➔ Financial Model (2D Sensitivity & Unit Economics Matrices)
+  ➔ Power BI Star Schema Model (Dim/Fact Separation & DAX Engine)
+  ➔ Figma UI Layout Integration ➔ Executive What-If Dashboard
 
 ---
 
-## 💵 Financial Modeling & Sensitivity Analysis
+## 🧹 1. Data Cleaning & Feature Engineering (Excel Power Query)
 
-When filtering the dashboard (e.g., toggling `OnlineSecurity: No` $\rightarrow$ `Yes`), we observe a dramatic churn drop from 53.2% to 22.9%. However, directly multiplying this delta by the revenue base is an **analytical trap** that ignores the real Cost of Retention and Adoption Rate.
-
-To prove economic viability, a **Financial Model (P&L Heatmap)** was developed, factoring in:
-1. Cost of Retention per client ($/month).
-2. Realistic Target Churn rates.
-3. Cannibalization risk (spending budget on clients who would have stayed organically).
-
-![Financial Model and Sensitivity Analysis](images/financial_model.png)
-
-**Model in Action (High-ARPU Segment):**
-Instead of the utopian 22.9% churn seen in the ideal slicer cut, the model assumes a conservative `Target Churn` of **35%**. 
-Even with these constraints and a retention cost (free security + account manager) of **$5/month** per client, the initiative is profitable, yielding a cumulative LTV profit of **+$97,466**.
+Before modeling, the dataset (`7,032` rows) underwent strict data hygiene and feature synthesis in Power Query:
+* **Sanity Checks & Null Handling:** Replaced empty string values in numerical fields with explicit `null` states and cast strict data types (`Double`, `Int64`, `Text`) to eliminate calculation artifacts in downstream aggregations.
+* **Feature Engineering:**
+  * `Tenure_Group`: Binned continuous monthly tenure into logical lifecycle cohorts (`0-6m`, `6-12m`, `1-2y`, `2+y`).
+  * `Lost_Monthly_Revenue`: Dynamically calculated lost revenue dollars resulting specifically from churn events (`Churn = Yes`).
+  * `Is_High_ARPU`: Synthetic binary flag isolating high-value VIP accounts based on business constraints.
+  * `Is_Price_Issue`: Attribute flag marking price-sensitive churn risk factors.
 
 ---
 
-## 🔄 Analytical Framework: From Insight to Production
+## 📊 2. Exploratory Analysis & Financial Sensitivity Modeling (Excel)
 
-This project utilizes a two-step validation system:
-1. **Slicers (Behavioral Lab):** Demonstrates the theoretical potential of metric shifts and identifies UX/Product friction points.
-2. **Financial Model (Business Filter):** Answers the ultimate question: "Does applying this lever make financial sense?"
+### Multi-Dimensional Cohort Analysis
+Using an 8-axis interactive Slicer Panel (`Tenure_Group`, `PaymentMethod`, `OnlineSecurity`, `TechSupport`, `SeniorCitizen`, `PaperlessBilling`, `Is_High_ARPU`, `InternetService`, `DeviceProtection`) linked to cross-filtered Pivot Tables, key baseline metrics were established:
+* **Total Churn Volume:** `26.6%` (1,869 churned customers)
+* **Monthly Revenue Leakage:** `$139,131 / mo`
+* **Total Monthly Revenue Base:** `$455,661 / mo`
 
-### 🚀 Hypothesis Validation Roadmap
-Because retrospective data shows correlation, not causality (Selection Bias), the proposed measures are phased for rollout:
+### Financial Sensitivity Matrices (P&L Heatmaps)
+Directly applying slicer retention deltas into financial forecasts creates an analytical trap (ignoring Cost of Retention and Adoption Rates). To prove economic viability, 2D Sensitivity Matrices were built for each risk cohort, evaluating:
+* **Unit Profit (`Profit per unit`)** and **Cumulative Financial Impact (`Cumulative effect ($)`)**.
+* Evaluated across varying **Cost of Retention ($3–$10/month)** against realistic **Target Churn rates (30%–75%)**.
 
-* **Quick Wins (Zero-budget UX changes):** The transition to auto-payments is implemented immediately, as it carries no financial risk.
-* **Qualitative Research (CustDev):** Conduct exit interviews with 50 churned clients from the `Core Onboarding Failure` group to validate the true root cause (lack of technical support).
-* **Causal Validation (A/B Testing):** Solutions requiring budget (e.g., free OnlineSecurity for High-ARPU) are launched as an A/B test on 10% of the cohort. A 100% rollout is only approved upon achieving a statistically significant (p < 0.05) reduction in churn.
+---
+
+## 📐 3. Data Modeling & DAX Engine (Power BI)
+
+### Star Schema Architecture
+The flat transactional file was restructured into an analytical **Star Schema**:
+* **Fact Table:** `Fact_Churn` (Contains IDs, surrogate keys, numerical metrics: `Charges`, `Tenure`, `Lost_Monthly_Revenue`).
+* **Dimension Tables:** `Dim_Contract`, `Dim_Demographic`, `Dim_Services`.
+* **Measure Repository & Parameters:** Dedicated `_Measures` table and `Target Churn` What-If parameter table.
+
+### Dynamic DAX & UI Formatting Engine
+To display clean single-card containers without visual bloat, multi-line composite DAX measures were engineered:
+* **Composite KPI Cards:** Measures like `Total Customers Card`, `Lost MRR Card`, `LTV Card`, and `MRR Card` bundle primary metrics with formatted secondary subtexts (e.g., `"5 163 Active + 1 869 Churned"` or `"30.5% of Potential"`).
+* **Conditional Badging & Status:** `Churn_Benchmark_Status_Text` and `Churn_Badge_TextColor` dynamically feed alert tags (e.g., `"Above Target (15%)"`).
+* **What-If Retention Simulator:** Dynamic slider parameter linking user target thresholds to real-time financial projections (`Saved MRR` & `ARR Impact`).
+
+---
+
+## 🎨 4. Executive UI/UX Design (Figma)
+
+To deliver a polished C-level dashboard, a custom background framework was created in Figma:
+* **Structured Canvas Containers:** Dedicated white card containers with soft rounded corners and drop shadows built over a subtle blue gradient background.
+* **Design Standards:** Standardized metric icon placement, clear typographic hierarchy, and pre-allocated UI slots for filters, cohort matrices, and simulation widgets.
+
+---
+
+## 🖼️ Dashboard Preview
+
+![Power BI Executive Dashboard](power-bi/screenshots/Dashboard.jpg)
+
+### Executive Dashboard Sections:
+1. **Top KPI Header:** High-level executive cards displaying `Total Customers`, `LTV ($230.7)`, `Churn Rate (26.6%)`, `MRR ($316.5K)`, and `Lost MRR ($139.1K)` with embedded trend subtexts.
+2. **Customer Churn Detail Panel:** Integrated slicer bar (`InternetService`, `TechSupport`, `OnlineSecurity`, `PaymentMethod`, `Contract`) driving an in-depth cohort matrix broken down by `Tenure`, `Customers`, `ARPU`, `Churn Rate`, `Lifetime`, `LTV`, and `Lost Customers`.
+3. **What-If Retention Simulator:** Interactive slider allowing decision-makers to adjust target churn thresholds (e.g., `0.10`) and instantly evaluate bottom-line financial recovery (`Saved MRR: $107.5K` / `ARR Impact: $1.3M`).
+
+---
+
+## 🔀 Key Churn Segments & Strategic Recommendations
+
+1. **High-ARPU Value Failure 💰 *(Requires Retention Budget)*:**
+   * **Cohort:** `Is_High_ARPU: High` + `OnlineSecurity: No`
+   * **Insight:** Premium customers without security add-ons churn at **53.3%**, creating the largest revenue loss ($64K/mo).
+   * **Action:** Assign VIP Account Managers and sponsor *OnlineSecurity* for free during the first 6 months to build ecosystem lock-in.
+   * **Model Validation:** Even with $5/mo retention cost at a conservative 35% target churn, cumulative LTV profit equals **+$97,466**.
+
+2. **Core Onboarding Failure 🛑 *(Zero Budget)*:**
+   * **Cohort:** `Tenure: 0-6m` + `TechSupport: No` + `Fiber Optic`
+   * **Insight:** New clients churn at **53.3%** in early months due to setup frustration, failing to recoup Customer Acquisition Cost (CAC).
+   * **Action:** Launch automated trigger-based onboarding emails/SMS on Day 3 of inactivity with video setup guides.
+
+3. **Payment Friction Trap 💳 *(Zero Budget)*:**
+   * **Cohort:** `Tenure: 0-6m` + `PaymentMethod: Electronic check`
+   * **Insight:** Manual payment methods induce regular billing friction, yielding **73.0%** churn.
+   * **Action:** Incentivize auto-pay linkage during registration via gamification (e.g., *"Opt-out auto-pay for a free speed boost"*).
+
+4. **Senior Citizen Tech Gap 👵 *(Zero Budget)*:**
+   * **Cohort:** `SeniorCitizen: 1` + `TechSupport: No`
+   * **Insight:** Churn hits **53.6%** due to self-service tech support difficulties.
+   * **Action:** Route Senior accounts directly to dedicated human support agents, bypassing standard IVR menus.
+
+---
+
+## 🛠️ How to Open & Run the Project Locally
+
+1. Clone or download this repository to your local machine.
+2. Open `power-bi/churn_dashboard.pbix` in Power BI Desktop (or `excel/churn_analysis.xlsx` in Excel).
+3. Go to **Transform Data ➔ Edit Parameters** (в Power BI / Excel Power Query).
+4. Update the `DataFilePath` parameter to match the absolute path of the `/data/` folder on your machine (e.g., `C:/Projects/customer-churn-analysis/data/`).
+5. Click **Apply Changes** to refresh all queries and data models.
